@@ -14,26 +14,23 @@
 
 
 // Define INPUT
-#define IN1 42 // Nível que quando ativado desliga a bomba
-#define IN2 44 // Verifica quando a resistência está ligada
-#define IN3 40 // Botão que aciona a saída OUT1 e OUT7
-#define IN4 38 // Botão que aciona a saída OUT2
-#define IN5 30 // Botão que aciona a saída OUT3
-#define IN6 32 // Botão que aciona a saída OUT4
-#define IN7 34 // Botão que aciona a saída OUT5
-#define IN8 36 // Botão que aciona a saída OUT6
-#define IN9 46 // Botão que modifica valores do LCD
-#define IN10 2 //Interrupção da vazão
+#define IN8 40 // Nível que quando ativado desliga a bomba
+#define IN9 38 // Verifica quando a resistência está ligada
+#define IN10 30 // Botão que aciona a saída OUT1 e OUT7
+#define IN11 32 // Botão que aciona a saída OUT2
+#define IN12 34 // Botão que aciona a saída OUT3
+#define IN13 36 // Botão que aciona a saída OUT4
+#define IN14 46 // Botão que aciona a saída OUT5
 
 // Define OUTPUT
-#define OUT1 31 // Bomba  Acionamento IN3
-#define OUT2 33 // Resistencia – Acionamento IN2 
-#define OUT3 35 // LED1 – Acionamento IN5
-#define OUT4 37 // LED2 – Acionamento IN6
-#define OUT5 39 // LED3 – Acionamento IN7
+#define OUT1 31 // Bomba  Acionamento IN10
+#define OUT2 33 // Resistencia – Acionamento IN9 
+#define OUT3 35 // LED1 – Acionamento IN12
+#define OUT4 37 // LED2 – Acionamento IN13
+#define OUT5 39 // LED3 – Acionamento IN14
 #define OUT6 41 // LED4 – Acionamento IN8
-#define OUT7 43 // Ventoinha – Acionamento IN3
-#define OUT8 45 // LED5 – Acionamento IN2
+#define OUT7 43 // Ventoinha – Acionamento IN10
+#define OUT8 45 // LED5 – Acionamento IN9
 
 // Porta do pino de sinal do DS18B20
 #define ONE_WIRE_BUS_1 23 // Temperatura de entrada do boiler
@@ -77,6 +74,9 @@ int ST7S=0;
 
 int LED1_OnOff;
 int LED2_OnOff;
+int LED3_OnOff;
+int LED4_OnOff;
+int LED5_OnOff;
 int LED6_OnOff;
 
 
@@ -145,13 +145,13 @@ void setup() {
   Serial.println();
 
   // Pinagem de entrada
-  pinMode(IN1, INPUT);
-  pinMode(IN2, INPUT);
-  pinMode(IN3, INPUT);
-  pinMode(IN4, INPUT);
-  pinMode(IN5, INPUT);
-  pinMode(IN6, INPUT);
-  pinMode(IN7, INPUT);
+  pinMode(IN8, INPUT);
+  pinMode(IN9, INPUT);
+  pinMode(IN10, INPUT);
+  pinMode(IN11, INPUT);
+  pinMode(IN12, INPUT);
+  pinMode(IN13, INPUT);
+  pinMode(IN14, INPUT);
   pinMode(IN8, INPUT);
   pinMode(IN9, INPUT);
 
@@ -218,17 +218,99 @@ int Mostraled2(int LED2_OnOff,EthernetClient client, String vars,float sensor){
         }
         }
 }
-int Mostraled6(int LED6_OnOff, EthernetClient client, String vars){
-       int l=0;
+int Mostraled3(int LED3_OnOff,EthernetClient client, String vars,float sensor){
+         int a=0;
+         client.println("<br>");
+         client.println("<input type=button value=LED3 style=margin-left:350px;margin-top:5px;height:35px;width:360px;background-color:white;margin:4px2px;color:#e47f26;text-align:center;font-size:28px;border-color:#e47f26");
+         client.println("<br><br>");
+         client.println("<input type=button value=Ligar style=margin-left:350px;margin-top:5px;height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led3_on'\" />");
+         client.println("<input type=button value=Desligar style=height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led3_off'\" />");
+         client.println("<output style=margin-left:540px;font-weight:bold;font-variant:small-caps;height:40px;width:180px;border-radius:8px;font-size:22px;border-radius:8px;>Temperatura 3:</div>");
+         client.println(sensor);
+         client.println("°C<br>");
+
+         if (a==0){
+          if (LED3_OnOff==1){ //Liga
+              a = 1;
+              ST3S=1;
+          }else{
+            if (LED3_OnOff==2){ //Desliga
+              a = 0;
+              ST3S=0;
+            }
+         }
+         }
+}
+
+int Mostraled4(int LED4_OnOff,EthernetClient client, String vars,float sensor){
+
+         int k=0;
+         client.println("<br>");
+         client.println("<input type=button value=LED4 style=margin-left:350px;margin-top:5px;height:35px;width:360px;background-color:white;margin:4px2px;color:#e47f26;text-align:center;font-size:28px;border-color:#e47f26");
+         client.println("<br><br>");
+         client.println("<input type=button value=Ligar style=margin-left:350px;margin-top:5px;height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led4_on'\" />");
+         client.println("<input type=button value=Desligar style=height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led4_off'\" /><br>");
+
+
+          if (k==0){
+           if (LED4_OnOff==1){ //Liga
+               k = 1;
+                ST4S=1;
+               }else{
+             if (LED4_OnOff==2){ //Desliga
+               k = 0;
+               ST4S=0;
+               }
+          }
+          }
+}
+
+int Mostraled5(int LED5_OnOff,EthernetClient client, String vars,float sensor){
+
+
+         int l=0;
+         client.println("<br>");
+         client.println("<input type=button value=LED5 style=margin-left:350px;margin-top:5px;height:35px;width:360px;background-color:white;margin:4px2px;color:#e47f26;text-align:center;font-size:28px;border-color:#e47f26");
+         client.println("<br><br>");
+         client.println("<input type=button value=Ligar style=margin-left:350px;margin-top:5px;height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led5_on'\" />");
+         client.println("<input type=button value=Desligar style=height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
+         client.println(" onclick=\"document.location='/led5_off'\" />");
+         client.println("<output style=margin-left:540px;font-weight:bold;font-variant:small-caps;height:40px;width:180px;border-radius:8px;font-size:22px;border-radius:8px;>Temperatura 4:</div>");
+         client.println(sensor);
+         client.println("°C<br>");
+           if (l==0){
+            if (LED5_OnOff==1){ //Liga
+                l = 1;
+                ST5S=1;
+            }else{
+              if (LED5_OnOff==2){ //Desliga
+                l = 0;
+                ST5S=0;
+              }
+           }
+           }
+}
+
+int Mostraled6(int LED6_OnOff,EthernetClient client, String vars){
+
+
+         int l=0;
 
          client.println("<br>");
-         client.println("<input type=button value=LED1 style=margin-left:350px;margin-top:5px;height:35px;width:360px;background-color:white;margin:4px2px;color:#e47f26;text-align:center;font-size:28px;border-color:#e47f26");
+         client.println("<input type=button value=LED6 style=margin-left:350px;margin-top:5px;height:35px;width:360px;background-color:white;margin:4px2px;color:#e47f26;text-align:center;font-size:28px;border-color:#e47f26");
          client.println("<br><br>");
          client.println("<input type=button value=Ligar style=margin-left:350px;margin-top:5px;height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
          client.println(" onclick=\"document.location='/led6_on'\" />");
          client.println("<input type=button value=Desligar style=height:40px;width:180px;background-color:#005595;color:white;padding:14px40px;font-size:22px;border-radius:8px;");
          client.println(" onclick=\"document.location='/led6_off'\" />");
          client.println("<br>");
+
+
            if (l==0){
             if (LED6_OnOff==1){ //Liga
                 l = 1;
@@ -240,7 +322,9 @@ int Mostraled6(int LED6_OnOff, EthernetClient client, String vars){
               }
            }
            }
+
 }
+
 
 void mostra_endereco_sensor(DeviceAddress deviceAddress) // Mostra o endereço do sensor
 {
@@ -323,7 +407,7 @@ void LCDresistencia() {
 
   lcd.setCursor(4, 0);
   lcd.print("RESISTENCIA");
-  if (digitalRead(IN2)==HIGH){
+  if (digitalRead(IN9)==HIGH){
    lcd.setCursor(5, 2);
    lcd.print("LIGADA   ");
   }
@@ -376,109 +460,85 @@ void incpulso ()
 }
 
 void Associa_BT_LED(){
-  if (!in_READ(IN1) && in_READ(IN3)) {
+  if (in_READ(IN8)) {
     ST1 = !ST1;
     delay(500);
   }
-  if (in_READ(IN2)) {
+  if (in_READ(IN9)) {
      ST2=!ST2;
      delay(500);
-  } /*
-//IN4  Botão que aciona a saída OUT2
-  if (in_READ(IN4)) {
-     ST3=1;
   }
-  else {
-     ST3=0;
+  if (in_READ(IN10)) {
+     ST3=!ST3;
+     delay(500);
   }
-//IN5  Botão que aciona a saída OUT3
-  if (in_READ(IN5)) {
-     ST4=1;
+  if (in_READ(IN11)) {
+     ST4=!ST4;
+     delay(500);
   }
-  else {
-     ST4=0;
+  if (in_READ(IN12)) {
+     ST5=!ST5;
+     delay(500);
   }
-//IN6  Botão que aciona a saída OUT4
-  if (in_READ(IN6)) {
-     ST5=1;
+  if (in_READ(IN13)) {
+     ST6=!ST6;
+     delay(500);
   }
-  else {
-     ST5=0;
-  }
-//IN7  Botão que aciona a saída OUT5
-  if (in_READ(IN7)) {
-     ST6=1;
-  }
-  else {
-    ST6=0;
-  }
-//IN8  Botão que aciona a saída OUT6
-  if (in_READ(IN8)) {
-    ST7=1; 
-  }
-  else {
-     ST7=0;
-  }*/
 }
 
 void Associa_Estado(){
-// IN1  Botão que desliga a saída OUT1 e OUT7 - ST1
+// IN8  Botão que desliga a saída OUT1 e OUT7 - ST1
   if ((ST1S==1 && ST1==LOW)||(ST1S==1 && ST1==HIGH)||(ST1S==0 && ST1==HIGH)) {
     out_ON(OUT1);
     out_ON(OUT7);
-  }// IN3  Botão que aciona a saída OUT1 e OUT7
+  }// IN10  Botão que aciona a saída OUT1 e OUT7
   else {
     out_OFF(OUT1);
     out_OFF(OUT7);
   }
  
   if ((ST2S==1 && ST2==LOW)||(ST2S==1 && ST2==HIGH)||(ST2S==0 && ST2==HIGH)) {
-    out_ON(OUT8);
-  }
-  else {
-    out_OFF(OUT8);
-  }/*
-  
-
-//IN4  Botão que aciona a saída OUT2
-  if (ST3==1) {
     out_ON(OUT2);
   }
   else {
     out_OFF(OUT2);
   }
-
-//IN5  Botão que aciona a saída OUT3
-  if (ST4==1) {
+  
+  if ((ST3S==1 && ST3==LOW)||(ST3S==1 && ST3==HIGH)||(ST3S==0 && ST3==HIGH)) {
     out_ON(OUT3);
   }
   else {
     out_OFF(OUT3);
   }
 
-//IN6  Botão que aciona a saída OUT4
-  if (ST5==1) {
+   if ((ST4S==1 && ST4==LOW)||(ST4S==1 && ST4==HIGH)||(ST4S==0 && ST4==HIGH)) {
     out_ON(OUT4);
   }
   else {
     out_OFF(OUT4);
   }
 
-//IN7  Botão que aciona a saída OUT5
-  if (ST6==1) {
+   if ((ST5S==1 && ST5==LOW)||(ST5S==1 && ST5==HIGH)||(ST5S==0 && ST5==HIGH)) {
     out_ON(OUT5);
   }
   else {
     out_OFF(OUT5);
   }
 
-//IN8  Botão que aciona a saída OUT6
-  if (ST7==1) {
+   if ((ST6S==1 && ST6==LOW)||(ST6S==1 && ST6==HIGH)||(ST6S==0 && ST6==HIGH)) {
     out_ON(OUT6);
   }
   else {
     out_OFF(OUT6);
-  }*/
+  }
+
+  if ((ST7S==1 && ST7==LOW)||(ST7S==1 && ST7==HIGH)||(ST7S==0 && ST7==HIGH)) {
+    out_ON(OUT7);
+  }
+  else {
+    out_OFF(OUT7);
+  }
+ 
 }
 
 void loop() {
@@ -524,8 +584,7 @@ switch (numero) {
     
     if (client) {
     Serial.println("new client");
-
-       
+      
     boolean currentLineIsBlank = true;
     
     String vars;
@@ -540,6 +599,12 @@ switch (numero) {
         if (vars.endsWith("/led1_off")) LED1_OnOff = 2;
         if (vars.endsWith("/led2_on"))  LED2_OnOff = 1;
         if (vars.endsWith("/led2_off")) LED2_OnOff = 2;
+        if (vars.endsWith("/led3_on"))  LED3_OnOff = 1;
+        if (vars.endsWith("/led3_off")) LED3_OnOff = 2;
+        if (vars.endsWith("/led4_on"))  LED4_OnOff = 1;
+        if (vars.endsWith("/led4_off")) LED4_OnOff = 2;
+        if (vars.endsWith("/led5_on"))  LED5_OnOff = 1;
+        if (vars.endsWith("/led5_off")) LED5_OnOff = 2;
         if (vars.endsWith("/led6_on"))  LED6_OnOff = 1;
         if (vars.endsWith("/led6_off")) LED6_OnOff = 2; 
                       
@@ -557,7 +622,10 @@ switch (numero) {
           
           Mostraled1(LED1_OnOff,client,vars,Sensores[0]);
           Mostraled2(LED2_OnOff,client,vars,Sensores[1]);
-          
+          Mostraled3(LED3_OnOff,client,vars,Sensores[2]);
+          Mostraled4(LED4_OnOff,client,vars,Sensores[3]);
+          Mostraled5(LED5_OnOff,client,vars,Sensores[2]);
+          Mostraled6(LED6_OnOff,client,vars);
           client.println("</html>");
           break;
         }
